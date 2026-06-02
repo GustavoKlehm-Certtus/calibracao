@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Calibração · 40 Demandas · Certtus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ct-primary-200: #009FFD;
+      --ct-primary-400: #1B315F;
+      --ct-neutral-200: #E7E7E7;
+      --ct-neutral-300: #969696;
+      --ct-neutral-400: #585757;
+      --ct-neutral-500: #1C1C1C;
+      --ct-success-100: #029C49;
+      --ct-success-bg: #E6F5ED;
+      --ct-warning-100: #DF8F16;
+      --ct-warning-bg: #FCF4E8;
+      --ct-error-100: #F14444;
+      --ct-error-bg: #FEECEC;
+      --ct-info-100: #2391E1;
+      --ct-info-bg: #E9F4FC;
+      --ct-teal: #22BCBF;
+      --ct-bg-200: #F4F4F4;
+      --ct-radius-200: 4px;
+      --ct-radius-300: 12px;
+      --ct-elev-100: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+    html { font-family: 'Roboto', system-ui, sans-serif; scroll-behavior: smooth; }
+    body { background: var(--ct-bg-200); color: var(--ct-neutral-500); }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; background: var(--ct-bg-200); padding: 2px 6px; border-radius: 4px; }
+
+    .header-grad { background: linear-gradient(135deg, var(--ct-primary-400) 0%, var(--ct-primary-200) 100%); color: white; }
+    .accent-bar { height: 4px; background: linear-gradient(90deg, var(--ct-primary-200), var(--ct-teal)); }
+
+    .section { background: white; border: 1px solid var(--ct-neutral-200); border-radius: var(--ct-radius-300); padding: 24px 32px; margin-bottom: 24px; box-shadow: var(--ct-elev-100); }
+    .section h2 { font-size: 20px; font-weight: 700; color: var(--ct-primary-400); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .section h2::before { content: ""; display: inline-block; width: 4px; height: 20px; background: var(--ct-primary-200); border-radius: 2px; }
+
+    .callout { background: var(--ct-info-bg); border-left: 4px solid var(--ct-info-100); padding: 12px 16px; border-radius: var(--ct-radius-200); color: #1B6AA3; font-size: 13px; margin: 14px 0; line-height: 1.6; }
+    .callout-ok { background: var(--ct-success-bg); border-left-color: var(--ct-success-100); color: #1B6E42; }
+
+    /* filters */
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+    .filter-btn { padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; border: 2px solid var(--ct-neutral-200); background: white; cursor: pointer; transition: all .15s; color: var(--ct-neutral-400); }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--ct-primary-200); background: var(--ct-primary-200); color: white; }
+    .filter-label { font-size: 12px; color: var(--ct-neutral-300); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+
+    /* stats bar */
+    .stats { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+    .stat { background: white; border: 1px solid var(--ct-neutral-200); border-radius: var(--ct-radius-200); padding: 10px 16px; font-size: 13px; }
+    .stat .n { font-size: 22px; font-weight: 900; color: var(--ct-primary-400); }
+    .stat .l { color: var(--ct-neutral-300); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+
+    /* table */
+    .tbl-wrap { overflow-x: auto; }
+    table.main { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table.main th { background: var(--ct-primary-400); color: white; text-align: left; padding: 10px 12px; font-weight: 600; font-size: 12px; white-space: nowrap; position: sticky; top: 0; z-index: 2; }
+    table.main td { padding: 9px 12px; border-bottom: 1px solid var(--ct-neutral-200); vertical-align: top; line-height: 1.45; }
+    table.main tr:nth-child(even) td { background: #FAFAFA; }
+    table.main tr:hover td { background: #EFF7FF; }
+    table.main tr.hidden-row { display: none; }
+
+    .key-link { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 600; color: var(--ct-primary-200); text-decoration: none; white-space: nowrap; }
+    .key-link:hover { text-decoration: underline; }
+    .summ { font-weight: 500; color: var(--ct-neutral-500); max-width: 340px; }
+    .proj-pill { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .type-epic { background: #E8F0FE; color: #1A56CC; }
+    .type-hist { background: #E6F5ED; color: #029C49; }
+
+    /* project colors */
+    .proj-BACK  { background: #FFF3CD; color: #856404; }
+    .proj-TOUCH { background: #FCE8FF; color: #7B2FAE; }
+    .proj-TALK  { background: #E0F2FE; color: #0369A1; }
+    .proj-IN    { background: #ECFDF5; color: #047857; }
+    .proj-NUV   { background: #F0F9FF; color: #0C4A6E; }
+    .proj-BI    { background: #FFF7ED; color: #C2410C; }
+    .proj-CENT  { background: #FEF2F2; color: #B91C1C; }
+
+    /* editable fields */
+    .edit-cell { min-width: 60px; }
+    select.field, input.field {
+      font-family: 'Roboto', sans-serif; font-size: 12px;
+      border: 1px solid var(--ct-neutral-200); border-radius: 4px;
+      padding: 3px 6px; background: white; color: var(--ct-neutral-500);
+      width: 100%;
+    }
+    select.field:focus, input.field:focus { outline: none; border-color: var(--ct-primary-200); }
+    textarea.note-field {
+      font-family: 'Roboto', sans-serif; font-size: 12px;
+      border: 1px solid var(--ct-neutral-200); border-radius: 4px;
+      padding: 4px 6px; background: white; color: var(--ct-neutral-500);
+      width: 100%; min-height: 38px; resize: vertical;
+    }
+    textarea.note-field:focus { outline: none; border-color: var(--ct-primary-200); }
+
+    .class-badge { display:inline-block; padding:3px 10px; border-radius:100px; font-size:12px; font-weight:700; min-width:36px; text-align:center; }
+    .c1 { background:#EEF2FF; color:#4338CA; } .c2 { background:#E0F2FE; color:#0369A1; }
+    .c3 { background:#E0F9FE; color:#0E7490; } .c4 { background:#ECFDF5; color:#047857; }
+    .c5 { background:#1B315F; color:white; }
+
+    .status-pill { display:inline-block; padding:2px 8px; border-radius:100px; font-size:10px; font-weight:700; white-space:nowrap; }
+    .s-new     { background:#FEF3C7; color:#92400E; }
+    .s-via     { background:#EFF6FF; color:#1D4ED8; }
+    .s-done    { background:#ECFDF5; color:#047857; }
+    .s-prog    { background:#F3E8FF; color:#6D28D9; }
+
+    .export-btn { background: var(--ct-primary-400); color: white; border: none; padding: 8px 20px; border-radius: var(--ct-radius-200); font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 4px; }
+    .export-btn:hover { background: #14264A; }
+
+
+    /* ── submit / name block ── */
+    .name-bar { background: white; border: 2px solid var(--ct-primary-200); border-radius: var(--ct-radius-300); padding: 20px 28px; margin-bottom: 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; box-shadow: var(--ct-elev-100); }
+    .name-bar label { font-weight:700; color:var(--ct-primary-400); font-size:14px; white-space:nowrap; }
+    .name-bar input { font-family:'Roboto',sans-serif; font-size:14px; border:1px solid var(--ct-neutral-200); border-radius:var(--ct-radius-200); padding:8px 12px; flex:1; min-width:180px; }
+    .name-bar input:focus { outline:none; border-color:var(--ct-primary-200); }
+    .submit-btn { background: var(--ct-success-100); color:white; border:none; padding:10px 24px; border-radius:var(--ct-radius-200); font-size:14px; font-weight:700; cursor:pointer; white-space:nowrap; }
+    .submit-btn:hover { background:#027a3a; }
+    .submit-btn:disabled { background:var(--ct-neutral-300); cursor:not-allowed; }
+    .submit-status { font-size:13px; font-weight:600; padding:6px 14px; border-radius:var(--ct-radius-200); display:none; }
+    .submit-ok  { background:var(--ct-success-bg); color:var(--ct-success-100); }
+    .submit-err { background:var(--ct-error-bg);   color:var(--ct-error-100); }
+    .progress-bar { height:4px; background:var(--ct-neutral-200); border-radius:2px; margin-top:8px; }
+    .progress-fill { height:4px; background:var(--ct-primary-200); border-radius:2px; transition:width .3s; }
+    .config-notice { background:var(--ct-warning-bg); border-left:4px solid var(--ct-warning-100); padding:12px 16px; border-radius:var(--ct-radius-200); color:#9C640F; font-size:13px; margin-bottom:16px; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; }
+      .section { box-shadow: none; }
+      select.field, input.field, textarea.note-field { border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header-grad">
+  <div class="max-w-7xl mx-auto px-8 pt-10 pb-8">
+    <div class="text-white/80 text-xs uppercase tracking-widest font-bold mb-2">Passo 0 · Calibração Manual</div>
+    <h1 class="text-4xl font-bold">Lista de Calibração · 40 Demandas</h1>
+    <p class="text-white/85 mt-3 text-sm max-w-3xl leading-relaxed">
+      Demandas reais extraídas do Jira (certtus-team) em <strong>01/06/2026</strong>.
+      Sete projetos, dois tipos (Epic e História), períodos entre nov/2025 e jun/2026.
+      Preencha as colunas editáveis para cada demanda — individualmente primeiro, depois compare com a equipe.
+    </p>
+  </div>
+  <div class="accent-bar"></div>
+</header>
+
+<main class="max-w-7xl mx-auto px-8 py-8">
+
+  <!-- ── APPS SCRIPT URL: substitua antes de publicar ── -->
+  <div class="config-notice no-print" id="config-notice">
+    ⚙️ <strong>Antes de publicar:</strong> substitua <code>SEU_APPS_SCRIPT_URL_AQUI</code> no JavaScript pelo URL do seu Web App (Google Apps Script). Veja as instruções no arquivo <strong>README.md</strong>.
+  </div>
+
+  <!-- nome + botão de envio -->
+  <div class="name-bar no-print">
+    <label for="respondent-name">👤 Seu nome:</label>
+    <input type="text" id="respondent-name" placeholder="Ex.: João Silva" maxlength="60"
+           oninput="localStorage.setItem('respondent_name',this.value)">
+    <button class="submit-btn" id="submit-btn" onclick="submitAnswers()">✔ Enviar respostas</button>
+    <span class="submit-status" id="submit-status"></span>
+  </div>
+  <!-- barra de progresso -->
+  <div class="no-print" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ct-neutral-400);margin-bottom:4px;">
+      <span>Progresso de classificação</span>
+      <span id="progress-label">0 / 40 classificadas</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+
+
+  <!-- instrução rápida -->
+  <div class="section" id="instrucoes">
+    <h2>Como usar esta planilha</h2>
+    <div class="callout">
+      <strong>Protocolo:</strong> cada participante preenche as colunas <em>Ambig.</em>, <em>Escopo</em>, <em>Risco</em> e <em>Classe</em>
+      <strong>individualmente e sem mostrar para os outros</strong>. Depois compare — as divergências são o material de ouro.
+      A coluna <em>Justificativa</em> é obrigatória: sem ela, não dá para aprender com os desacordos.
+    </div>
+    <div class="callout callout-ok" style="margin-top:0">
+      <strong>Régua rápida:</strong>
+      Ambig. A1=especificado · A2=solução em aberto · A3=caminho incerto · A4=sem definição prévia · A5=define princípios.
+      Escopo 1=rotina · 2=módulo · 3=multi-módulo · 4=produto · 5=empresa.
+      Risco: S (sim) se houver regulatório / irreversível / dados sensíveis / produção crítica; N caso contrário.
+      Classe = A-base + (+1 se Escopo≥3 ou Risco=S). Ver <a href="guia-classificacao-demandas.html" style="color:#1B6AA3;font-weight:700;">Guia de Classificação</a> para detalhes.
+    </div>
+    <div class="no-print" style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <button class="export-btn" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <span style="font-size:12px;color:var(--ct-neutral-300)">Os dados preenchidos são exportados para uso em planilha.</span>
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="stats no-print">
+    <div class="stat"><div class="n" id="cnt-total">40</div><div class="l">Total</div></div>
+    <div class="stat"><div class="n" id="cnt-epic">—</div><div class="l">Epics</div></div>
+    <div class="stat"><div class="n" id="cnt-hist">—</div><div class="l">Histórias</div></div>
+    <div class="stat"><div class="n" id="cnt-filled">0</div><div class="l">Classificadas</div></div>
+    <div class="stat"><div class="n" id="cnt-done">—</div><div class="l">Concluídas</div></div>
+  </div>
+
+  <!-- filters -->
+  <div class="filters no-print">
+    <span class="filter-label">Projeto:</span>
+    <button class="filter-btn active" onclick="filterBy('proj','ALL',this)">Todos</button>
+    <button class="filter-btn" onclick="filterBy('proj','BACK',this)">BACK</button>
+    <button class="filter-btn" onclick="filterBy('proj','TOUCH',this)">TOUCH</button>
+    <button class="filter-btn" onclick="filterBy('proj','TALK',this)">TALK</button>
+    <button class="filter-btn" onclick="filterBy('proj','IN',this)">IN</button>
+    <button class="filter-btn" onclick="filterBy('proj','NUV',this)">NUV</button>
+    <button class="filter-btn" onclick="filterBy('proj','BI',this)">BI</button>
+    <span class="filter-label" style="margin-left:8px;">Tipo:</span>
+    <button class="filter-btn active" onclick="filterBy('type','ALL',this)">Todos</button>
+    <button class="filter-btn" onclick="filterBy('type','Epic',this)">Epic</button>
+    <button class="filter-btn" onclick="filterBy('type','História',this)">História</button>
+  </div>
+
+  <div class="tbl-wrap">
+  <table class="main" id="main-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Chave</th>
+        <th>Tipo</th>
+        <th>Projeto</th>
+        <th>Status atual</th>
+        <th>Criado</th>
+        <th style="max-width:340px">Sumário</th>
+        <th>Ambig.</th>
+        <th>Escopo</th>
+        <th>Risco</th>
+        <th>Classe</th>
+        <th>Faixa</th>
+        <th style="min-width:200px">Justificativa</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+  </table>
+  </div>
+
+</main>
+
+<script>
+const ISSUES = [
+  // ── BACKOFFICE (VFP/Desktop) ──────────────────────────────────────────────
+  {key:"BACK-3495",type:"Epic",proj:"BACK",status:"Análise de Viabilidade",created:"2026-06-01",summ:"Check List diferenciado para ser utilizado na Desmontagem do Motor"},
+  {key:"BACK-3494",type:"Epic",proj:"BACK",status:"Análise de Viabilidade",created:"2026-06-01",summ:"Permitir seleção múltipla de Operações na Consulta de OS (Ctrl+F3)"},
+  {key:"BACK-3493",type:"Epic",proj:"BACK",status:"Análise de Viabilidade",created:"2026-06-01",summ:"Melhorar o configurador de Condicionais, tornar mais intuitivo"},
+  {key:"BACK-3477",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-29",summ:"Melhoria no Processo de Empréstimos e Provisões Financeiras para Reduzir Intervenções Manuais"},
+  {key:"BACK-3467",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-28",summ:"Melhorar Mensagem de Erro para Inoperância da SEFAZ na Emissão de NF-e"},
+  {key:"BACK-3413",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-27",summ:"Apuração do Simples Nacional: Relatório de Cálculo Individual e Consolidado por CNPJ"},
+  {key:"BACK-3411",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-26",summ:"Configurar CFOP por NCM nas Configurações Fiscais de Operações"},
+  {key:"BACK-3386",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-25",summ:"Criação de Relatório de Movimentação de Produtos com Histórico Cronológico Consolidado"},
+  {key:"BACK-3372",type:"Epic",proj:"BACK",status:"Planejamento",created:"2026-05-25",summ:"Consolidação de Estoque - Venda E-commerce"},
+  {key:"BACK-3366",type:"Epic",proj:"BACK",status:"Planejamento",created:"2026-05-25",summ:"Atualizar cálculo da CSLL - Majoração percentual de presunção 10%"},
+  {key:"BACK-3365",type:"Epic",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-25",summ:"Atualização de dados do Boleto via API"},
+  {key:"BACK-3358",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-22",summ:"Permitir Geração de Pedidos de Compras para Múltiplos Fornecedores a Partir de uma Cotação"},
+  {key:"BACK-3320",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-21",summ:"Melhorias no CRM para Controle e Acompanhamento de Contatos de Vendas"},
+  {key:"BACK-3318",type:"Epic",proj:"BACK",status:"Planejamento",created:"2026-05-21",summ:"Fluxo de Caixa + Lançamento de Provisões Anuais"},
+  {key:"BACK-3309",type:"Epic",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-21",summ:"Painel para Monitoramento Inteligente de Manutenção"},
+  {key:"BACK-3255",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-19",summ:"Opção para definir sobre destaque de ST nas Devoluções interestaduais (BA/MG)"},
+  {key:"BACK-3251",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2026-05-19",summ:"Refatorar a tela de Importação do Plano de Contas"},
+  {key:"BACK-1475",type:"História",proj:"BACK",status:"Concluído",created:"2025-12-16",summ:"Tratar baixa de estoque para operações do Mercado FULL"},
+  {key:"BACK-1441",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2025-12-02",summ:"Definição de contas contábeis de IBS/CBS na Operação"},
+  {key:"BACK-1401",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2025-11-28",summ:"Módulo para gestão dos PIX gerados"},
+  {key:"BACK-1397",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2025-11-28",summ:"Reforma Tributária - Sucessão e Transferências: Workflow de Aprovação de Sucessão"},
+  {key:"BACK-1395",type:"História",proj:"BACK",status:"Análise de Viabilidade",created:"2025-11-28",summ:"Reforma Tributária - Sucessão e Transferências: Transferência de Saldos"},
+  {key:"BACK-1394",type:"Epic",proj:"BACK",status:"Análise de Viabilidade",created:"2025-11-28",summ:"Adequações à Reforma Tributária - Ajustes de Competência/Financeiro/Apuração"},
+  {key:"BACK-1400",type:"História",proj:"BACK",status:"Concluído",created:"2025-11-28",summ:"Realizar integração com novo servidor WhatsApp-2"},
+  // ── TOUCH (Mobile) ───────────────────────────────────────────────────────
+  {key:"TOUCH-947",type:"Epic",proj:"TOUCH",status:"Análise de Viabilidade",created:"2026-05-28",summ:"Estudar para o sistema sugerir o produto a ser utilizado na execução do Serviço"},
+  {key:"TOUCH-946",type:"Epic",proj:"TOUCH",status:"Análise de Viabilidade",created:"2026-05-28",summ:"Analisar o Resultado da Ordem de Serviço"},
+  {key:"TOUCH-945",type:"Epic",proj:"TOUCH",status:"Planejamento",created:"2026-05-28",summ:"Desempenho do Balcão de Peças"},
+  {key:"TOUCH-942",type:"Epic",proj:"TOUCH",status:"Análise de Viabilidade",created:"2026-05-27",summ:"Checklist automatizado pela leitura de foto com IA"},
+  {key:"TOUCH-941",type:"Epic",proj:"TOUCH",status:"Planejamento",created:"2026-05-27",summ:"Possibilitar fazer Liberações Gerenciais"},
+  {key:"TOUCH-583",type:"História",proj:"TOUCH",status:"Análise de Viabilidade",created:"2025-12-05",summ:"Permitir abrir OS com veículo sem a necessidade de informar placa, somente a descrição"},
+  // ── TALK (Web/JS) ─────────────────────────────────────────────────────────
+  {key:"TALK-1559",type:"História",proj:"TALK",status:"Análise de Viabilidade",created:"2026-05-29",summ:"Melhorar tempo de carregamento na navegação entre telas"},
+  {key:"TALK-1550",type:"Epic",proj:"TALK",status:"Planejamento Técnico",created:"2026-05-29",summ:"Melhoria na performance do Talk"},
+  {key:"TALK-1238",type:"História",proj:"TALK",status:"Concluído",created:"2025-12-15",summ:"Migração do backend para arquitetura API Hub + Workers"},
+  // ── INOVAÇÃO (Web/JS) ─────────────────────────────────────────────────────
+  {key:"IN-590",type:"História",proj:"IN",status:"Análise de Viabilidade",created:"2026-05-28",summ:"Validar configuração para habilitar Empresas na troca de filial"},
+  {key:"IN-589",type:"História",proj:"IN",status:"Prototipação",created:"2026-05-28",summ:"Apresentar o Cargo do Usuário"},
+  {key:"IN-516",type:"História",proj:"IN",status:"Teste QA",created:"2026-05-20",summ:"Melhoria: Responsividade da Central de Relacionamento CERTUS para Dispositivos Mobile"},
+  {key:"IN-41",type:"História",proj:"IN",status:"Concluído",created:"2025-12-15",summ:"Página principal da Universidade Corporativa"},
+  {key:"IN-40",type:"História",proj:"IN",status:"Concluído",created:"2025-12-15",summ:"Página do Método Certtus 5.0"},
+  // ── NUVEM (Web/JS) ────────────────────────────────────────────────────────
+  {key:"BACK-3304",type:"História",proj:"NUV",status:"Planejamento",created:"2026-05-21",summ:"Solução para impressão de Documentos em clientes Nuvem"},
+  {key:"BACK-3270",type:"História",proj:"NUV",status:"Planejamento",created:"2026-05-20",summ:"Consolidação de Estoque para Venda E-commerce entre Empresas 003, 005 e 006"},
+];
+
+const FAIXAS = {1:"Junior",2:"Pleno",3:"Sênior",4:"Especialista",5:"Master"};
+const STATUS_CLASS = {
+  "Concluído":"s-done","Aprovado":"s-done",
+  "Análise de Viabilidade":"s-via","Planejamento":"s-via","Planejamento Técnico":"s-via",
+  "Novo Ticket":"s-new","Prototipação":"s-new",
+  "Teste QA":"s-prog","Em andamento":"s-prog"
+};
+
+function statusClass(s){
+  for(const [k,v] of Object.entries(STATUS_CLASS)) if(s.includes(k)) return v;
+  return "s-new";
+}
+
+let activeFilters = {proj:"ALL", type:"ALL"};
+
+function renderTable(){
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+  let n=0, epics=0, hists=0, filled=0, done=0;
+  ISSUES.forEach((iss,idx)=>{
+    n++;
+    if(iss.type==="Epic") epics++; else hists++;
+    const sd = statusClass(iss.status);
+    if(iss.status.includes("Concluído")||iss.status.includes("Aprovado")) done++;
+    const savedA = localStorage.getItem("a_"+iss.key)||"";
+    const savedE = localStorage.getItem("e_"+iss.key)||"";
+    const savedR = localStorage.getItem("r_"+iss.key)||"";
+    const savedC = localStorage.getItem("c_"+iss.key)||"";
+    const savedN = localStorage.getItem("n_"+iss.key)||"";
+    if(savedC) filled++;
+
+    const hidden = (activeFilters.proj!=="ALL" && iss.proj!==activeFilters.proj) ||
+                   (activeFilters.type!=="ALL" && iss.type!==activeFilters.type);
+
+    const tr = document.createElement("tr");
+    if(hidden) tr.classList.add("hidden-row");
+    tr.dataset.proj = iss.proj;
+    tr.dataset.type = iss.type;
+    tr.dataset.key = iss.key;
+
+    const classBadge = savedC ? `<span class="class-badge c${savedC}">C${savedC}</span>` : `<span style="color:var(--ct-neutral-300);font-size:12px;">—</span>`;
+    const faixaText = savedC ? `<span style="font-size:11px;color:var(--ct-neutral-400);">${FAIXAS[savedC]||""}</span>` : "";
+
+    tr.innerHTML = `
+      <td style="color:var(--ct-neutral-300);font-size:12px;text-align:center;">${idx+1}</td>
+      <td><a class="key-link" href="https://certtus-team.atlassian.net/browse/${iss.key}" target="_blank">${iss.key}</a></td>
+      <td><span class="proj-pill ${iss.type==="Epic"?"type-epic":"type-hist"}">${iss.type==="Epic"?"⬡ Epic":"▣ Hist."}</span></td>
+      <td><span class="proj-pill proj-${iss.proj}">${iss.proj}</span></td>
+      <td><span class="status-pill ${sd}">${iss.status.replace("Novo Ticket - ","").replace("Análise de Viabilidade","Viabilidade")}</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--ct-neutral-300);">${iss.created}</td>
+      <td class="summ">${iss.summ}</td>
+      <td class="edit-cell">
+        <select class="field" onchange="save('a_${iss.key}',this.value);calcClass('${iss.key}')">
+          <option value="">—</option>
+          ${["A1","A2","A3","A4","A5"].map(v=>`<option${savedA===v?" selected":""}>${v}</option>`).join("")}
+        </select>
+      </td>
+      <td class="edit-cell">
+        <select class="field" onchange="save('e_${iss.key}',this.value);calcClass('${iss.key}')">
+          <option value="">—</option>
+          ${["1","2","3","4","5"].map(v=>`<option${savedE===v?" selected":""}>${v}</option>`).join("")}
+        </select>
+      </td>
+      <td class="edit-cell">
+        <select class="field" onchange="save('r_${iss.key}',this.value);calcClass('${iss.key}')">
+          <option value="">—</option>
+          <option${savedR==="S"?" selected":""}>S</option>
+          <option${savedR==="N"?" selected":""}>N</option>
+        </select>
+      </td>
+      <td class="edit-cell" id="class_${iss.key}">${classBadge}</td>
+      <td id="faixa_${iss.key}">${faixaText}</td>
+      <td><textarea class="note-field" placeholder="por que essa classe?" onchange="save('n_${iss.key}',this.value)">${savedN}</textarea></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("cnt-total").textContent = n;
+  document.getElementById("cnt-epic").textContent = epics;
+  document.getElementById("cnt-hist").textContent = hists;
+  document.getElementById("cnt-filled").textContent = filled;
+  document.getElementById("cnt-done").textContent = done;
+}
+
+
+function save(k,v){ try{ localStorage.setItem(k,v); }catch(e){} updateProgress(); }
+
+function updateProgress(){
+  let f=0;
+  ISSUES.forEach(i=>{ if(localStorage.getItem("c_"+i.key)) f++; });
+  document.getElementById("cnt-filled").textContent = f;
+  const pct = Math.round(f/ISSUES.length*100);
+  document.getElementById("progress-fill").style.width = pct+"%";
+  document.getElementById("progress-label").textContent = f+" / "+ISSUES.length+" classificadas";
+}
+
+function calcClass(key){
+  const a = localStorage.getItem("a_"+key)||"";
+  const e = parseInt(localStorage.getItem("e_"+key)||"0");
+  const r = localStorage.getItem("r_"+key)||"";
+  if(!a) return;
+  const base = parseInt(a.replace("A",""));
+  const elevated = (e>=3 || r==="S") ? base+1 : base;
+  const cls = Math.min(5, elevated);
+  save("c_"+key, String(cls));
+  const el = document.getElementById("class_"+key);
+  const fe = document.getElementById("faixa_"+key);
+  if(el) el.innerHTML = `<span class="class-badge c${cls}">C${cls}</span>`;
+  if(fe) fe.innerHTML = `<span style="font-size:11px;color:var(--ct-neutral-400);">${FAIXAS[cls]}</span>`;
+}
+
+function filterBy(dim, val, btn){
+  activeFilters[dim] = val;
+  btn.closest(".filters").querySelectorAll(".filter-btn").forEach(b=>{
+    if(b.onclick.toString().includes(`'${dim}'`)) b.classList.remove("active");
+  });
+  btn.classList.add("active");
+  document.querySelectorAll("#tbody tr").forEach(tr=>{
+    const pMatch = activeFilters.proj==="ALL" || tr.dataset.proj===activeFilters.proj;
+    const tMatch = activeFilters.type==="ALL" || tr.dataset.type===activeFilters.type;
+    tr.classList.toggle("hidden-row", !(pMatch && tMatch));
+  });
+}
+
+function exportCSV(){
+  const headers = ["#","Chave","Tipo","Projeto","Status","Criado","Sumário","Ambig.","Escopo","Risco","Classe","Faixa","Justificativa"];
+  const rows = ISSUES.map((iss,i)=>{
+    const a = localStorage.getItem("a_"+iss.key)||"";
+    const e = localStorage.getItem("e_"+iss.key)||"";
+    const r = localStorage.getItem("r_"+iss.key)||"";
+    const c = localStorage.getItem("c_"+iss.key)||"";
+    const n = (localStorage.getItem("n_"+iss.key)||"").replace(/"/g,'""');
+    const faixa = c ? (FAIXAS[c]||"") : "";
+    return [i+1,iss.key,iss.type,iss.proj,iss.status,iss.created,`"${iss.summ}"`,a,e,r,c?`C${c}`:"",faixa,`"${n}"`].join(",");
+  });
+  const blob = new Blob([[headers.join(","),...rows].join("\n")], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href=url; a.download="calibracao-demandas.csv"; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── APPS SCRIPT SUBMIT ────────────────────────────────────────────────────────
+const APPS_SCRIPT_URL = "SEU_APPS_SCRIPT_URL_AQUI";
+
+function submitAnswers(){
+  const name = (document.getElementById("respondent-name").value||"").trim();
+  if(!name){ alert("Por favor, preencha seu nome antes de enviar."); return; }
+
+  const unfilled = ISSUES.filter(i=>!localStorage.getItem("c_"+i.key));
+  if(unfilled.length > 0){
+    const ok = confirm(`Você ainda tem ${unfilled.length} demanda(s) sem classificação.\nDeseja enviar assim mesmo?`);
+    if(!ok) return;
+  }
+
+  if(APPS_SCRIPT_URL === "SEU_APPS_SCRIPT_URL_AQUI"){
+    alert("⚠️ Configure o URL do Apps Script antes de enviar.\nVeja o README.md para instruções.");
+    return;
+  }
+
+  const btn = document.getElementById("submit-btn");
+  const status = document.getElementById("submit-status");
+  btn.disabled = true;
+  btn.textContent = "Enviando…";
+  status.style.display = "none";
+
+  const payload = {
+    respondent: name,
+    timestamp: new Date().toISOString(),
+    answers: ISSUES.map(iss=>({
+      key:  iss.key,
+      summ: iss.summ,
+      proj: iss.proj,
+      type: iss.type,
+      ambig:  localStorage.getItem("a_"+iss.key)||"",
+      escopo: localStorage.getItem("e_"+iss.key)||"",
+      risco:  localStorage.getItem("r_"+iss.key)||"",
+      classe: localStorage.getItem("c_"+iss.key)||"",
+      faixa:  FAIXAS[localStorage.getItem("c_"+iss.key)]||"",
+      nota:   localStorage.getItem("n_"+iss.key)||""
+    }))
+  };
+
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(payload)
+  })
+  .then(()=>{
+    btn.textContent = "✔ Enviado!";
+    btn.style.background = "var(--ct-success-100)";
+    status.className = "submit-status submit-ok";
+    status.textContent = "Respostas enviadas com sucesso. Obrigado!";
+    status.style.display = "inline-block";
+    localStorage.setItem("submitted_by_"+name, new Date().toISOString());
+  })
+  .catch(err=>{
+    btn.disabled = false;
+    btn.textContent = "✔ Enviar respostas";
+    status.className = "submit-status submit-err";
+    status.textContent = "Erro ao enviar. Tente novamente ou use 'Exportar CSV'.";
+    status.style.display = "inline-block";
+  });
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+// restore name
+const savedName = localStorage.getItem("respondent_name");
+if(savedName) document.addEventListener("DOMContentLoaded",()=>{
+  const el = document.getElementById("respondent-name");
+  if(el) el.value = savedName;
+});
+// hide config notice if URL is set
+if(APPS_SCRIPT_URL !== "SEU_APPS_SCRIPT_URL_AQUI"){
+  document.addEventListener("DOMContentLoaded",()=>{
+    const n = document.getElementById("config-notice");
+    if(n) n.style.display="none";
+  });
+}
+renderTable();
+updateProgress();
+
+</script>
+
+
+</body>
+</html>
