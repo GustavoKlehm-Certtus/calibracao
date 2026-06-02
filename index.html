@@ -452,7 +452,7 @@ function submitAnswers(){
     if(!ok) return;
   }
 
-  if(APPS_SCRIPT_URL === "SEU_APPS_SCRIPT_URL_AQUI"){
+  if(APPS_SCRIPT_URL === "SEU_PS_SCRIPT_URL_AQUI"){
     alert("⚠️ Configure o URL do Apps Script antes de enviar.\nVeja o README.md para instruções.");
     return;
   }
@@ -511,7 +511,7 @@ if(savedName) document.addEventListener("DOMContentLoaded",()=>{
   if(el) el.value = savedName;
 });
 // hide config notice if URL is set
-if(APPS_SCRIPT_URL !== "SEU_APPS_SCRIPT_URL_AQUI"){
+if(APPS_SCRIPT_URL !== "SEU_AS_SCRIPT_URL_AQUI"){
   document.addEventListener("DOMContentLoaded",()=>{
     const n = document.getElementById("config-notice");
     if(n) n.style.display="none";
