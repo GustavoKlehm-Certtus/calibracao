@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Carreira · Engenharia Certtus</title>
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ct-primary-200: #009FFD;
+      --ct-primary-400: #1B315F;
+      --ct-neutral-200: #E7E7E7;
+      --ct-neutral-300: #969696;
+      --ct-neutral-400: #585757;
+      --ct-neutral-500: #1C1C1C;
+      --ct-success-100: #029C49;
+      --ct-success-bg:  #E6F5ED;
+      --ct-warning-100: #DF8F16;
+      --ct-warning-bg:  #FCF4E8;
+      --ct-error-100:   #F14444;
+      --ct-error-bg:    #FEECEC;
+      --ct-info-100:    #2391E1;
+      --ct-info-bg:     #E9F4FC;
+      --ct-teal:        #22BCBF;
+      --ct-bg-200:      #F4F4F4;
+      --ct-sp-400: 16px; --ct-sp-500: 24px; --ct-sp-600: 32px; --ct-sp-700: 40px;
+      --ct-radius-200: 4px; --ct-radius-300: 12px;
+      --ct-elev-100: 0 1px 4px rgba(0,0,0,0.08);
+      --ct-elev-200: 0 4px 16px rgba(27,49,95,0.10);
+      /* band colors */
+      --band-jr:   #6B7A99;
+      --band-pl:   #2391E1;
+      --band-sr:   #009FFD;
+      --band-esp:  #22BCBF;
+      --band-mas:  #1B315F;
+    }
+    * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+    html { font-family: 'Roboto', system-ui, sans-serif; scroll-behavior: smooth; }
+    body { background: var(--ct-bg-200); color: var(--ct-neutral-500); }
+    code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.9em;
+                  background: var(--ct-bg-200); padding: 2px 6px; border-radius: 4px; }
+
+    .header-grad { background: linear-gradient(135deg, var(--ct-primary-400) 0%, var(--ct-primary-200) 100%); color: white; }
+    .accent-bar { height: 4px; background: linear-gradient(90deg, var(--ct-primary-200), var(--ct-teal)); }
+
+    .section {
+      background: white; border: 1px solid var(--ct-neutral-200);
+      border-radius: var(--ct-radius-300); padding: var(--ct-sp-600);
+      margin-bottom: var(--ct-sp-500); box-shadow: var(--ct-elev-100);
+    }
+    .section h2 {
+      font-size: 22px; font-weight: 700; color: var(--ct-primary-400);
+      margin-bottom: 6px; display: flex; align-items: center; gap: 10px; scroll-margin-top: 20px;
+    }
+    .section h2::before { content: ""; display: inline-block; width: 4px; height: 22px; background: var(--ct-primary-200); border-radius: 2px; }
+    .section > p.lead { color: var(--ct-neutral-400); margin-bottom: var(--ct-sp-500); font-size: 15px; line-height: 1.6; }
+    .section p { line-height: 1.65; }
+
+    .toc {
+      background: white; border: 1px solid var(--ct-neutral-200);
+      border-radius: var(--ct-radius-300); padding: var(--ct-sp-500);
+      position: sticky; top: 20px; box-shadow: var(--ct-elev-100);
+    }
+    .toc h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ct-neutral-400); font-weight: 700; margin-bottom: 12px; }
+    .toc a { display: block; padding: 6px 0; color: var(--ct-neutral-400); font-size: 14px; text-decoration: none; border-left: 2px solid transparent; padding-left: 10px; transition: all .15s; }
+    .toc a:hover { color: var(--ct-primary-200); border-left-color: var(--ct-primary-200); }
+
+    .callout { background: var(--ct-info-bg); border-left: 4px solid var(--ct-info-100); padding: 14px 18px; border-radius: var(--ct-radius-200); color: #1B6AA3; font-size: 13.5px; margin: 16px 0; line-height: 1.6; }
+    .callout-warn { background: var(--ct-warning-bg); border-left-color: var(--ct-warning-100); color: #9C640F; }
+    .callout-ok   { background: var(--ct-success-bg); border-left-color: var(--ct-success-100); color: #1B6E42; }
+    .callout strong { font-weight: 700; }
+
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; background: var(--ct-primary-200); color: white; }
+    .pill-soft { background: var(--ct-bg-200); color: var(--ct-neutral-400); }
+
+    /* ---------- Staircase ---------- */
+    .stair { display: flex; flex-direction: column-reverse; gap: 6px; margin-top: 8px; }
+    .stair-row { display: grid; grid-template-columns: 150px 1fr; align-items: stretch; gap: 0; }
+    .stair-fill { display: flex; align-items: center; }
+    .stair-step {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; border-radius: var(--ct-radius-200);
+      color: white; font-weight: 500; font-size: 14px; width: 100%;
+      box-shadow: var(--ct-elev-100);
+    }
+    .stair-step .lvl { font-weight: 700; }
+    .stair-step .who { font-size: 12px; font-weight: 400; opacity: .92; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .stair-badge { background: rgba(255,255,255,.22); border-radius: 100px; padding: 1px 9px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .stair-empty { background: repeating-linear-gradient(45deg, #EFEFEF, #EFEFEF 8px, #F8F8F8 8px, #F8F8F8 16px); color: var(--ct-neutral-300); border: 1px dashed var(--ct-neutral-300); box-shadow: none; }
+    .stair-empty .who { color: var(--ct-error-100); font-weight: 600; opacity: 1; }
+    .stair-cargo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ct-neutral-300); display: flex; align-items: center; padding-right: 12px; }
+    .band-jr  { background: var(--band-jr); }
+    .band-pl  { background: var(--band-pl); }
+    .band-sr  { background: var(--band-sr); }
+    .band-esp { background: var(--band-esp); }
+    .band-mas { background: var(--band-mas); }
+
+    /* ---------- Level cards ---------- */
+    .lvl-card { border: 1px solid var(--ct-neutral-200); border-radius: var(--ct-radius-300); overflow: hidden; margin-bottom: var(--ct-sp-500); box-shadow: var(--ct-elev-100); }
+    .lvl-head { padding: 16px 22px; color: white; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .lvl-head h3 { font-size: 19px; font-weight: 700; }
+    .lvl-head .sub { font-size: 12.5px; opacity: .9; font-weight: 400; }
+    .lvl-head .steps { font-size: 11px; background: rgba(255,255,255,.2); padding: 3px 10px; border-radius: 100px; font-weight: 600; }
+    .lvl-body { padding: 22px; background: white; }
+    .lvl-body .class-of { font-size: 15px; color: var(--ct-neutral-500); margin-bottom: 18px; line-height: 1.6; }
+    .lvl-body .class-of b { color: var(--ct-primary-400); }
+
+    .axes { display: grid; gap: 10px; margin-bottom: 18px; }
+    .axis { display: grid; grid-template-columns: 140px 1fr; align-items: center; gap: 12px; }
+    .axis .name { font-size: 12px; font-weight: 700; color: var(--ct-neutral-400); text-transform: uppercase; letter-spacing: .03em; }
+    .axis .track { display: flex; gap: 4px; }
+    .axis .seg { height: 8px; flex: 1; border-radius: 100px; background: var(--ct-neutral-200); }
+    .axis .seg.on { background: var(--ct-primary-200); }
+    .axis .desc { font-size: 12.5px; color: var(--ct-neutral-400); margin-top: 3px; grid-column: 2; line-height: 1.45; }
+
+    .sublevels { border-top: 1px solid var(--ct-neutral-200); padding-top: 16px; margin-top: 4px; }
+    .sublevels h4, .anchor h4, .nextup h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--ct-neutral-300); font-weight: 700; margin-bottom: 10px; }
+    .subrow { display: grid; grid-template-columns: 130px 1fr; gap: 12px; padding: 7px 0; font-size: 13.5px; line-height: 1.5; border-bottom: 1px dotted var(--ct-neutral-200); }
+    .subrow:last-child { border-bottom: none; }
+    .subrow .sname { font-weight: 700; color: var(--ct-primary-400); }
+    .subrow .sname .cbo { display: block; font-weight: 400; font-size: 11px; color: var(--ct-neutral-300); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+
+    .anchor { margin-top: 18px; background: var(--ct-success-bg); border-radius: var(--ct-radius-200); padding: 16px 18px; border-left: 4px solid var(--ct-success-100); }
+    .anchor h4 { color: var(--ct-success-100); }
+    .anchor .demand { font-weight: 700; color: #1B6E42; font-size: 14.5px; }
+    .anchor p { font-size: 13px; color: #2C6B47; margin-top: 6px; line-height: 1.55; }
+    .anchor.illustr { background: var(--ct-bg-200); border-left-color: var(--ct-neutral-300); }
+    .anchor.illustr h4 { color: var(--ct-neutral-400); }
+    .anchor.illustr .demand { color: var(--ct-neutral-500); }
+    .anchor.illustr p { color: var(--ct-neutral-400); }
+
+    .nextup { margin-top: 16px; background: var(--ct-info-bg); border-radius: var(--ct-radius-200); padding: 14px 18px; border-left: 4px solid var(--ct-info-100); }
+    .nextup h4 { color: var(--ct-info-100); }
+    .nextup p { font-size: 13.5px; color: #1B6AA3; line-height: 1.55; }
+
+    /* steps / process */
+    .steps-flow { counter-reset: step; display: grid; gap: 12px; margin-top: 8px; }
+    .flow-step { display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+    .flow-step .num { width: 32px; height: 32px; border-radius: 50%; background: var(--ct-primary-400); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+    .flow-step .txt { font-size: 14px; line-height: 1.55; color: var(--ct-neutral-500); padding-top: 4px; }
+    .flow-step .txt b { color: var(--ct-primary-400); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 720px){ .two-col { grid-template-columns: 1fr; } .axis { grid-template-columns: 1fr; } .axis .desc { grid-column: 1; } .stair-row { grid-template-columns: 92px 1fr; } .subrow { grid-template-columns: 1fr; gap: 2px;} }
+    .mini { background:#FAFAFA; border:1px solid var(--ct-neutral-200); border-radius: var(--ct-radius-200); padding: 16px 18px; }
+    .mini h3 { font-size: 15px; font-weight: 700; color: var(--ct-primary-400); margin-bottom: 8px; }
+    .mini p { font-size: 13.5px; color: var(--ct-neutral-400); line-height: 1.55; }
+
+    .ref-list a { color: var(--ct-primary-200); text-decoration: none; font-weight: 500; }
+    .ref-list a:hover { text-decoration: underline; }
+    .ref-list li { margin-bottom: 10px; font-size: 13.5px; color: var(--ct-neutral-400); line-height: 1.5; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; }
+      .section, .lvl-card { box-shadow: none; break-inside: avoid; }
+      main { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header-grad">
+  <div class="max-w-6xl mx-auto px-8 pt-10 pb-8">
+    <div class="text-white/80 text-xs uppercase tracking-widest font-bold mb-2">Engenharia · Certtus</div>
+    <h1 class="text-4xl font-bold">Plano de Carreira</h1>
+    <p class="text-white/85 mt-3 text-sm max-w-3xl leading-relaxed">
+      Uma escada única para o time de desenvolvimento. O objetivo é simples: que cada
+      pessoa saiba <strong>onde está</strong> na evolução e <strong>o que precisa fazer</strong>
+      para subir — com critérios baseados na natureza do trabalho, não em números fáceis de inflar.
+    </p>
+  </div>
+  <div class="accent-bar"></div>
+</header>
+
+<main class="max-w-6xl mx-auto px-8 py-8 grid grid-cols-1 lg:grid-cols-[230px_1fr] gap-8">
+
+  <!-- TOC -->
+  <aside class="no-print">
+    <div class="toc">
+      <h3>Navegação</h3>
+      <a href="#como-ler">Como ler este plano</a>
+      <a href="#escada">A escada da Certtus</a>
+      <a href="#eixos">Os 3 eixos de senioridade</a>
+      <a href="#niveis">Os níveis em detalhe</a>
+      <a href="#band-jr" style="padding-left:22px; font-size:13px;">› Junior</a>
+      <a href="#band-pl" style="padding-left:22px; font-size:13px;">› Pleno</a>
+      <a href="#band-sr" style="padding-left:22px; font-size:13px;">› Sênior</a>
+      <a href="#band-esp" style="padding-left:22px; font-size:13px;">› Especialista</a>
+      <a href="#band-mas" style="padding-left:22px; font-size:13px;">› Master</a>
+      <a href="#promocao">Como funciona a promoção</a>
+      <a href="#metricas">O papel das métricas</a>
+      <a href="#trilha">Trilha técnica vs. gestão</a>
+      <a href="#vfp">VFP, JS e a migração</a>
+      <a href="#mudou">O que mudou nesta versão</a>
+      <a href="#refs">Referências</a>
+    </div>
+  </aside>
+
+  <div>
+
+    <!-- COMO LER -->
+    <section class="section" id="como-ler">
+      <h2>Como ler este plano</h2>
+      <p class="lead">
+        Três ideias sustentam tudo o que vem a seguir. Se você guardar só estas, já entendeu o essencial.
+      </p>
+
+      <div class="mini" style="margin-bottom:14px;">
+        <h3>1. O nível é definido pela <em>classe do problema</em> que você consegue conduzir sozinho</h3>
+        <p>Não é "em qual etapa do fluxo você trabalha" — todos passam por concepção, planejamento, execução,
+        review e QA. O que muda é o <b>peso</b> do problema que você carrega ponta a ponta: o quão ambíguo ele chega,
+        o quanto ele toca o sistema e o risco que ele carrega. Um problema trabalhoso não é o mesmo que um problema complexo.</p>
+      </div>
+
+      <div class="mini" style="margin-bottom:14px;">
+        <h3>2. Métricas são termômetro, não régua</h3>
+        <p>Lead time, tamanho de PR, retrabalho, DORA — tudo isso ajuda a enxergar a saúde do time e a guiar conversas de
+        melhoria. Nenhuma delas, sozinha, define o seu nível ou trava uma promoção. Elas <b>informam</b> a conversa de carreira;
+        quem decide o nível é o julgamento sobre os comportamentos descritos aqui.</p>
+      </div>
+
+      <div class="mini">
+        <h3>3. Promoção olha para a frente, não só para trás</h3>
+        <p>Você não espera "já ter feito" o trabalho do próximo nível por acaso. A gente combina, no 1:1, uma demanda
+        de <b>stretch</b> — um problema da classe do próximo degrau — primeiro com rede de segurança (apoio, pareamento,
+        review próximo) e depois sem rede. Subir é demonstrar de forma <b>consistente</b> que você opera no próximo nível.</p>
+      </div>
+
+      <div class="callout">
+        <strong>Por que mudamos.</strong> A versão anterior usava Story Point e % de retrabalho como nota de corte por nível.
+        Isso parou de funcionar quando adotamos SDD com IA: a IA acelerou o output e qualquer pessoa que prompta bem passou a
+        "bater os pontos". Quando a IA escreve boa parte do código, volume deixa de separar júnior de sênior — o que diferencia
+        passa a ser <strong>julgamento</strong>: a qualidade da spec, da decisão de arquitetura, do review e da verificação. Esta versão
+        mede exatamente isso.
+      </div>
+    </section>
+
+    <!-- A ESCADA -->
+    <section class="section" id="escada">
+      <h2>A escada da Certtus</h2>
+      <p class="lead">
+        Uma escada contínua de 11 degraus, agrupados em 5 faixas. Formalmente ela se divide em dois cargos por causa do CBO
+        (Desenvolvedor e Analista de Desenvolvimento), mas para fins de carreira pense nela como um caminho só. Os subníveis
+        (I, II, III) existem para distribuir os passos de salário — você sobe o subnível antes de mudar de faixa.
+        Abaixo, a foto de hoje: repare no <strong style="color:var(--ct-error-100)">vão do Sênior</strong>, totalmente vazio.
+      </p>
+
+      <div class="stair">
+        <!-- Master -->
+        <div class="stair-row">
+          <div class="stair-cargo">Analista&nbsp;de&nbsp;Desenv.</div>
+          <div class="stair-fill"><div class="stair-step band-mas"><span class="lvl">Master</span><span class="who"></span></div></div>
+        </div>
+        <!-- Especialista III/II/I -->
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-esp"><span class="lvl">Especialista III</span><span class="who"></span></div></div>
+        </div>
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-esp"><span class="lvl">Especialista II</span><span class="who"><span class="stair-badge">VFP ×2</span></span></div></div>
+        </div>
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-esp"><span class="lvl">Especialista I</span><span class="who"><span class="stair-badge">VFP ×1</span></span></div></div>
+        </div>
+        <!-- Sênior II/I  (EMPTY) -->
+        <div class="stair-row">
+          <div class="stair-cargo">Desenvolvedor</div>
+          <div class="stair-fill"><div class="stair-step stair-empty"><span class="lvl">Sênior II</span><span class="who">vão atual</span></div></div>
+        </div>
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step stair-empty"><span class="lvl">Sênior I</span><span class="who">vão atual</span></div></div>
+        </div>
+        <!-- Pleno II (EMPTY) / Pleno I -->
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step stair-empty"><span class="lvl">Pleno II</span><span class="who">vão atual</span></div></div>
+        </div>
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-pl"><span class="lvl">Pleno I</span><span class="who"><span class="stair-badge">JS ×2</span><span class="stair-badge">VFP ×1</span></span></div></div>
+        </div>
+        <!-- Junior II / I -->
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-jr"><span class="lvl">Junior II</span><span class="who"><span class="stair-badge">JS ×1</span><span class="stair-badge">VFP ×1</span></span></div></div>
+        </div>
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-jr"><span class="lvl">Junior I</span><span class="who"><span class="stair-badge">VFP ×1</span></span></div></div>
+        </div>
+        <!-- Iniciante -->
+        <div class="stair-row">
+          <div class="stair-cargo"></div>
+          <div class="stair-fill"><div class="stair-step band-jr" style="opacity:.78"><span class="lvl">Iniciante</span><span class="who"></span></div></div>
+        </div>
+      </div>
+
+      <div class="callout-warn callout" style="margin-top:20px;">
+        <strong>O vão do Sênior é o ponto mais urgente.</strong> Os Plenos de hoje não têm, na prática, um próximo degrau ocupado
+        por alguém — acima deles só há Especialista, que já é outra faixa. No JS isso é ainda mais crítico: o teto atual é Pleno,
+        e o time perdeu recentemente um Especialista e um Pleno II. Preencher o Sênior é, ao mesmo tempo, carreira e continuidade do negócio.
+      </div>
+    </section>
+
+    <!-- EIXOS -->
+    <section class="section" id="eixos">
+      <h2>Os 3 eixos de senioridade</h2>
+      <p class="lead">
+        Toda a escada se move ao longo de três eixos. Eles vêm direto da forma como o time já descrevia "capacidade" e
+        "comportamento" — só que agora explícitos, para que dê para apontar <em>em qual eixo</em> você precisa crescer.
+        Esta estrutura segue a lógica de frameworks abertos de mercado (como o Engineering Ladders), adaptada à realidade da Certtus.
+      </p>
+
+      <div class="two-col">
+        <div class="mini">
+          <h3 style="display:flex;align-items:center;gap:8px;"><span class="pill" style="background:var(--ct-primary-200)">Eixo 1</span> Ambiguidade</h3>
+          <p>Quão <b>definido</b> o problema chega até você. Do "passo-a-passo pronto" (alguém já decidiu tudo) até o
+          "resolva isto, e descubra você mesmo o caminho". Quanto mais alto, menos a IA resolve por você — porque escrever um bom
+          PRD para um problema de negócio ambíguo é julgamento, não execução.</p>
+        </div>
+        <div class="mini">
+          <h3 style="display:flex;align-items:center;gap:8px;"><span class="pill" style="background:var(--ct-teal)">Eixo 2</span> Escopo &amp; Risco</h3>
+          <p>Quanto a sua solução <b>toca</b> — de uma rotina, para um módulo, para vários módulos com dependências, para o produto
+          inteiro — e quão <b>delicado</b> é o terreno: um ajuste interno é diferente de uma adequação regulatória ou de algo crítico
+          em produção.</p>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:16px;">
+        <h3 style="display:flex;align-items:center;gap:8px;"><span class="pill" style="background:var(--ct-primary-400)">Eixo 3</span> Direção da orientação</h3>
+        <p>Quanto você <b>consome</b> versus <b>produz</b> orientação. No começo você precisa de ajuda frequente e de validação antes de
+        entregar. Mais adiante, você passa a destravar os outros: revisa, mentora, quebra demandas para o time e vira referência.
+        Este eixo é o que resolve o nosso gargalo — quanto antes alguém deixa de "consumir tempo de babá", mais tempo os seniores e
+        especialistas têm para o trabalho que só eles fazem.</p>
+      </div>
+    </section>
+
+    <!-- NÍVEIS -->
+    <section class="section" id="niveis">
+      <h2>Os níveis em detalhe</h2>
+      <p class="lead">
+        Cada faixa abaixo traz: a <strong>classe de problema</strong> que você conduz, onde você está nos <strong>3 eixos</strong>,
+        os <strong>subníveis</strong> (com o código CBO), uma <strong>demanda-âncora real</strong> da Certtus que exemplifica a classe,
+        e o <strong>sinal de que você está pronto</strong> para o próximo degrau. As âncoras marcadas como "exemplo da casa" são
+        demandas que de fato entregamos; use-as como referência concreta no 1:1.
+      </p>
+
+      <!-- JUNIOR -->
+      <div class="lvl-card" id="band-jr">
+        <div class="lvl-head band-jr">
+          <div><h3>Junior</h3> <span class="sub">— executa o que foi decidido</span></div>
+          <span class="steps">Iniciante · Junior I · Junior II</span>
+        </div>
+        <div class="lvl-body">
+          <p class="class-of"><b>Classe de problema:</b> executa tarefas que <em>outra pessoa</em> já decompôs e especificou.
+          O "o quê" e o "como" chegam prontos; o trabalho é fazer acontecer, ganhar fluência no código e nas ferramentas, e
+          desenvolver julgamento.</p>
+
+          <div class="axes">
+            <div class="axis"><span class="name">Ambiguidade</span><div class="track"><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Escopo &amp; Risco</span><div class="track"><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Direção</span><div class="track"><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+          </div>
+
+          <div class="sublevels">
+            <h4>Subníveis</h4>
+            <div class="subrow"><div class="sname">Iniciante<span class="cbo">CBO 3171-10</span></div><div>Ainda não resolve um problema real sozinho. Executa exercícios sob acompanhamento constante, aprende o fluxo (git, branch, commit, PR) e ainda não entrega valor de forma independente — está sendo preparado para entregar.</div></div>
+            <div class="subrow"><div class="sname">Junior I<span class="cbo">CBO 3171-10</span></div><div>Tarefa totalmente definida, com passo-a-passo claro. Depende bastante de ajuda e validação antes de qualquer entrega. Retrabalho alto aqui é <em>esperado e normal</em> — faz parte de aprender, não é demérito.</div></div>
+            <div class="subrow"><div class="sname">Junior II<span class="cbo">CBO 3171-10</span></div><div>Tarefa definida, mas com pequenas decisões locais. Executa sozinho, ajusta erros simples, começa a navegar o código sem acompanhamento constante — mas ainda não decide a solução.</div></div>
+          </div>
+
+          <div class="anchor illustr">
+            <h4>Como reconhecer na prática</h4>
+            <div class="demand">Implementar uma task já especificada dentro de uma HU maior</div>
+            <p>Ex.: ajustar uma rotina conforme um plano que o Pleno/Sênior já escreveu, corrigir um bug simples com orientação. No fluxo SDD, o Junior <em>executa</em> as tasks que outra pessoa criou e é revisado mais do que revisa.</p>
+          </div>
+
+          <div class="nextup">
+            <h4>Pronto para Pleno quando…</h4>
+            <p>Você recebe um <strong>problema claro mas com a solução em aberto</strong> e o resolve sozinho, ponta a ponta, sem precisar do passo-a-passo — debugando, propondo o "como" e estimando o esforço com alguma precisão.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLENO -->
+      <div class="lvl-card" id="band-pl">
+        <div class="lvl-head band-pl">
+          <div><h3>Pleno</h3> <span class="sub">— resolve e organiza a solução</span></div>
+          <span class="steps">Pleno I · Pleno II</span>
+        </div>
+        <div class="lvl-body">
+          <p class="class-of"><b>Classe de problema:</b> dado um problema <em>claro</em>, encontra e implementa a solução sozinho.
+          Evolui para receber objetivo + contexto e ter que <em>estruturar</em> a solução — definir etapas, dependências e como implementar.</p>
+
+          <div class="axes">
+            <div class="axis"><span class="name">Ambiguidade</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Escopo &amp; Risco</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Direção</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+          </div>
+
+          <div class="sublevels">
+            <h4>Subníveis</h4>
+            <div class="subrow"><div class="sname">Pleno I<span class="cbo">CBO 3171-10</span></div><div>Resolução direta: problema claro, solução não especificada. Propõe como fazer, debuga e resolve bugs sozinho, cria pequenas rotinas e melhorias, já estima esforço com alguma precisão.</div></div>
+            <div class="subrow"><div class="sname">Pleno II<span class="cbo">CBO 3171-10</span></div><div>Resolução estruturada: recebe objetivo e contexto, mas estrutura a solução. Quebra demandas grandes em tasks, antecipa impactos básicos no sistema, sugere melhorias de implementação e já ajuda juniores a executar.</div></div>
+          </div>
+
+          <div class="anchor">
+            <h4>Demanda-âncora · exemplo da casa</h4>
+            <div class="demand">CNPJ alfanumérico — adequação do sistema para aceitar e tratar o novo formato</div>
+            <p>Problema claro e de baixo risco, mas com escopo mecânico amplo (mexe em muitas rotinas). É o exemplo perfeito de
+            <em>trabalhoso ≠ complexo</em>: quem conduz uma demanda dessa classe sozinho está sólido em Pleno. Foi conduzida ponta a
+            ponta por um Pleno, incluindo a etapa de concepção, justamente por ser de baixa ambiguidade.</p>
+          </div>
+
+          <div class="nextup">
+            <h4>Pronto para Sênior quando…</h4>
+            <p>Você conduz a <strong>Concepção</strong> de uma demanda inteira de classe <em>ambígua</em>: escreve o PRD/TechSpec inicial,
+            levanta limitações, quebra a demanda grande em HUs para os outros e <strong>apresenta e defende o plano no comitê de produto</strong>.
+            Esse é o portão observável da transição.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SÊNIOR -->
+      <div class="lvl-card" id="band-sr">
+        <div class="lvl-head band-sr">
+          <div><h3>Sênior</h3> <span class="sub">— dono da Concepção de uma demanda</span></div>
+          <span class="steps">Sênior I · Sênior II &nbsp;·&nbsp; ⚠ vão atual</span>
+        </div>
+        <div class="lvl-body">
+          <p class="class-of"><b>Classe de problema:</b> conduz uma demanda inteira em que <em>o objetivo existe, mas o caminho não
+          está claro</em>. Evolui para problemas amplos, com múltiplas consequências no sistema, pensando em prevenir o que vem depois.</p>
+
+          <div class="axes">
+            <div class="axis"><span class="name">Ambiguidade</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Escopo &amp; Risco</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Direção</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></div></div>
+          </div>
+
+          <div class="sublevels">
+            <h4>Subníveis</h4>
+            <div class="subrow"><div class="sname">Sênior I<span class="cbo">CBO 3171-10</span></div><div>Solução ambígua: o objetivo existe, mas o caminho não está claro. Escolhe a abordagem técnica, avalia riscos antes de implementar, identifica a causa-raiz de bugs complexos, melhora código existente e já influencia os padrões do time.</div></div>
+            <div class="subrow"><div class="sname">Sênior II<span class="cbo">CBO 3171-10</span></div><div>Solução sistêmica: problema amplo com múltiplas consequências. Considera o impacto no sistema inteiro, previne problemas futuros, define padrões técnicos, reduz a dependência do gestor e melhora a produtividade do time.</div></div>
+          </div>
+
+          <div class="anchor">
+            <h4>Demanda-âncora · exemplo da casa (JS)</h4>
+            <div class="demand">Refatoração de arquitetura: monolito → master-worker com mensageria e workers separados</div>
+            <p>Foi <em>concebida e iniciada pelo Especialista</em> — é trabalho de classe Sênior+. Quando ele saiu, os juniores
+            terminaram a execução sob pressão e deram conta: isso é prova de <strong>capacidade de stretch</strong>, mas terminar algo já
+            iniciado é diferente de <em>conduzir desde a ambiguidade</em>. Conduzir uma demanda dessa classe do zero é o que define o Sênior.</p>
+          </div>
+
+          <div class="callout-warn callout">
+            <strong>Como subir sem ter o degrau ocupado?</strong> Via <em>stretch assignment</em>: a gente combina uma demanda de classe
+            Sênior e você a conduz primeiro <strong>com rede</strong> (acompanhamento e review próximos) e, na seguinte, <strong>sem rede</strong>.
+            No JS, onde o produto é menor e gera poucos problemas complexos, a <strong>migração do VFP</strong> é a fonte natural dessas demandas.
+          </div>
+
+          <div class="nextup">
+            <h4>Pronto para Especialista quando…</h4>
+            <p>Suas decisões deixam de ser "resolver dentro de um escopo" e passam a <strong>moldar a arquitetura e os padrões através de
+            escopos</strong>: você define como os módulos conversam, conduz refatorações relevantes e evita que o software vire legado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="background:linear-gradient(135deg,var(--ct-primary-400),var(--ct-primary-200));color:white;border:none;text-align:center;font-size:14px;">
+        ↑ Acima desta linha começa o cargo <strong>Analista de Desenvolvimento</strong> ↑<br>
+        <span style="opacity:.85;font-size:13px;">O trabalho deixa de ser "resolver problemas" e passa a "moldar o sistema". É liderança técnica — sem gestão hierárquica.</span>
+      </div>
+
+      <!-- ESPECIALISTA -->
+      <div class="lvl-card" id="band-esp">
+        <div class="lvl-head band-esp">
+          <div><h3>Especialista</h3> <span class="sub">— molda a arquitetura do produto</span></div>
+          <span class="steps">Especialista I · II · III</span>
+        </div>
+        <div class="lvl-body">
+          <p class="class-of"><b>Classe de problema:</b> estrutura soluções técnicas onde <em>não há definição prévia</em>, define os
+          padrões do produto e, no topo da faixa, define direções tecnológicas e protege a sustentabilidade técnica de longo prazo.</p>
+
+          <div class="axes">
+            <div class="axis"><span class="name">Ambiguidade</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Escopo &amp; Risco</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></div></div>
+            <div class="axis"><span class="name">Direção</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></div></div>
+          </div>
+
+          <div class="sublevels">
+            <h4>Subníveis</h4>
+            <div class="subrow"><div class="sname">Especialista I<span class="cbo">CBO 2124-05</span></div><div>Arquitetura Local: estrutura soluções técnicas para um módulo ou área sem definição prévia. Define a estrutura de classes, camadas e integrações, revisa soluções propostas por seniores, reduz retrabalho técnico recorrente, cria padrões dentro de um módulo e começa a atacar dívida técnica.</div></div>
+            <div class="subrow"><div class="sname">Especialista II<span class="cbo">CBO 2124-05</span></div><div>Arquitetura Sistêmica: múltiplos módulos com dependências entre si. Define como os módulos conversam, evita soluções incompatíveis no futuro, conduz refatorações relevantes, melhora a estabilidade geral e atua em problemas críticos de produção.</div></div>
+            <div class="subrow"><div class="sname">Especialista III<span class="cbo">CBO 2124-05</span></div><div>Arquitetura Estratégica: evolução do produto e sustentabilidade técnica de longo prazo. Define direções tecnológicas (stack, frameworks, arquitetura), avalia questões técnicas vs. negócio, decide quando reescrever / manter / migrar e evita que o software vire legado.</div></div>
+          </div>
+
+          <div class="anchor">
+            <h4>Demanda-âncora · exemplo da casa</h4>
+            <div class="demand">Reforma tributária — concepção de notas de crédito/débito e eventos para adequação</div>
+            <p>Alta ambiguidade (regra fiscal nova, sujeita a interpretação), alto risco regulatório, novidade, e corta vários pontos do
+            sistema. Conduzir a concepção de algo dessa classe é trabalho de Especialista. Na Certtus, <strong>liderar a estratégia de
+            saída do VFP</strong> (o que migrar, quando e como) é, em si, trabalho desta faixa.</p>
+          </div>
+
+          <div class="nextup">
+            <h4>Pronto para Master quando…</h4>
+            <p>O seu impacto passa de "um produto" para <strong>múltiplos produtos, equipes e o longo prazo da empresa</strong> — e você
+            começa a formar não só seniores, mas também outros especialistas.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MASTER -->
+      <div class="lvl-card" id="band-mas">
+        <div class="lvl-head band-mas">
+          <div><h3>Master</h3> <span class="sub">— a engenharia como vantagem competitiva</span></div>
+          <span class="steps">topo da trilha técnica</span>
+        </div>
+        <div class="lvl-body">
+          <p class="class-of"><b>Classe de problema:</b> decisões técnicas amplas, com impacto em <em>múltiplos produtos, equipes e no
+          longo prazo da empresa</em>. Arquitetura Organizacional.</p>
+
+          <div class="axes">
+            <div class="axis"><span class="name">Ambiguidade</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div></div>
+            <div class="axis"><span class="name">Escopo &amp; Risco</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div></div>
+            <div class="axis"><span class="name">Direção</span><div class="track"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div></div>
+          </div>
+
+          <div class="sublevels">
+            <h4>O que faz</h4>
+            <div class="subrow"><div class="sname">Master<span class="cbo">CBO 2124-05</span></div><div>Define princípios e padrões de engenharia da empresa, orienta tecnicamente múltiplos squads e é referência técnica para arquiteturas complexas. Conecta decisões técnicas a objetivos de negócio, previne riscos estruturais do sistema, forma novos seniores e especialistas, participa da definição tecnológica do roadmap e lidera tecnicamente squads — sem gestão hierárquica direta.</div></div>
+          </div>
+
+          <div class="callout-ok callout">
+            <strong>Resumo da faixa:</strong> a engenharia passa a ser uma vantagem competitiva da empresa. O Master cria leverage
+            através dos outros — o impacto dele é o impacto do time inteiro melhorando.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMOÇÃO -->
+    <section class="section" id="promocao">
+      <h2>Como funciona a promoção</h2>
+      <p class="lead">
+        Promoção não é "bater uma meta". É uma conversa estruturada, baseada em evidências, sobre se você já opera de forma
+        consistente no próximo nível. O ritmo abaixo é o que torna possível montar um plano de ação concreto no 1:1 — inclusive para
+        os degraus que hoje ninguém ocupa.
+      </p>
+
+      <div class="steps-flow">
+        <div class="flow-step"><div class="num">1</div><div class="txt"><b>Onde você está.</b> Posicionamos você nos 3 eixos (ambiguidade, escopo &amp; risco, direção) contra a faixa atual, usando os comportamentos descritos aqui.</div></div>
+        <div class="flow-step"><div class="num">2</div><div class="txt"><b>Qual é o próximo degrau.</b> Olhamos a classe de problema do próximo nível e uma demanda-âncora real que a exemplifica (ex.: a reforma tributária para Especialista, a refatoração master-worker para Sênior).</div></div>
+        <div class="flow-step"><div class="num">3</div><div class="txt"><b>A ponte: um stretch assignment.</b> Combinamos uma demanda específica da classe do próximo nível. Primeiro com rede de segurança (pareamento, review próximo, acompanhamento). Depois, uma equivalente sem rede.</div></div>
+        <div class="flow-step"><div class="num">4</div><div class="txt"><b>Evidências, lidas em contexto.</b> Reunimos o que é difícil de falsear com IA: as specs (PRD/TechSpec) que você escreveu, a qualidade dos reviews que você deu, as decisões que registrou, se o que você entregou funcionou em produção, e a mentoria que ofereceu.</div></div>
+        <div class="flow-step"><div class="num">5</div><div class="txt"><b>Demonstração consistente.</b> O mercado é unânime: espera-se desempenho no próximo nível de forma consistente por <em>alguns ciclos</em> antes de formalizar — não um lampejo isolado.</div></div>
+        <div class="flow-step"><div class="num">6</div><div class="txt"><b>Formalização.</b> Com input de pares e do gestor, formalizamos o novo nível (e o passo de salário do subnível correspondente).</div></div>
+      </div>
+
+      <div class="callout">
+        <strong>Importante:</strong> os comportamentos desta escada são guia para a <em>conversa</em> de carreira, não um checklist para
+        marcar caixinhas. É normal alguém estar mais forte em um eixo e mais fraco em outro — o plano de ação serve exatamente para
+        fortalecer o eixo que falta.
+      </div>
+    </section>
+
+    <!-- MÉTRICAS -->
+    <section class="section" id="metricas">
+      <h2>O papel das métricas</h2>
+      <p class="lead">
+        A Certtus mede produtividade com base no framework <strong>DORA</strong> e em sinais de fluxo do GitHub e do Jira. Essas
+        métricas continuam existindo e são importantes — mas o papel delas mudou. Elas vivem em <strong>dois baldes que não se misturam</strong>.
+      </p>
+
+      <div class="two-col">
+        <div class="mini" style="border-left:4px solid var(--ct-info-100);">
+          <h3>Balde 1 — Saúde do time</h3>
+          <p>DORA, lead time, throughput, tamanho de PR, cobertura de review. Dono: a liderança de engenharia e o squad. Serve para
+          enxergar e consertar problemas <em>do sistema</em> e para guiar coaching. <b>Fica fora do nível e da remuneração individual.</b></p>
+        </div>
+        <div class="mini" style="border-left:4px solid var(--ct-teal);">
+          <h3>Balde 2 — Evidência do indivíduo</h3>
+          <p>Sinais difíceis de falsear com IA, sempre lidos em contexto: qualidade do review (pega problema real, não nitpick), posse
+          de incidentes/hotfix, qualidade das specs e design docs, mentoria. <b>Informam a conversa de carreira; nunca a decidem por nota de corte.</b></p>
+        </div>
+      </div>
+
+      <div class="callout-warn callout">
+        Story Point e % de retrabalho <strong>saíram</strong> como travas de nível. Eles são fáceis de inflar (ainda mais com IA) e o
+        contexto domina demais — um Júnior em terreno limpo tem retrabalho baixo; um Especialista apagando incêndio no legado pode ter
+        retrabalho alto. Os detalhes de cada métrica estão no documento <span class="mono">Guia de Métricas</span>.
+      </div>
+    </section>
+
+    <!-- TRILHA -->
+    <section class="section" id="trilha">
+      <h2>Trilha técnica vs. gestão</h2>
+      <p class="lead">
+        Esta escada é uma <strong>trilha técnica</strong> (de contribuidor individual). Crescer para Especialista e Master é crescer em
+        profundidade técnica e influência — <strong>sem virar gestor de pessoas</strong>.
+      </p>
+      <p style="margin-bottom:14px;">
+        Isso é uma escolha consciente, e cada vez mais comum no mercado. A literatura de referência (como os arquétipos de Staff
+        Engineer descritos por Will Larson) é clara: liderança técnica de alto nível <em>não</em> é "sênior, só que mais" — é um tipo
+        de trabalho baseado em influência e liderança técnica, em fazer o time melhor através de arquitetura, padrões e mentoria.
+        Você não precisa gerenciar gente para chegar ao topo da carreira técnica na Certtus.
+      </p>
+      <p>
+        A parte de <strong>gestão de pessoas</strong> — 1:1, desenvolvimento de carreira, performance, priorização — fica com o Gestor.
+        Para o tamanho atual do time, faz sentido manter só a trilha técnica formalizada. Ninguém precisa "virar gestor" para evoluir
+        ou ganhar mais: as duas coisas são caminhos diferentes, e nenhum é "mais alto" que o outro.
+      </p>
+    </section>
+
+    <!-- VFP -->
+    <section class="section" id="vfp">
+      <h2>VFP, JS e a migração</h2>
+      <p class="lead">
+        Temos duas stacks (VFP9 e JS) numa <strong>escada só</strong>. Os comportamentos que definem senioridade são idênticos nas duas
+        — o que muda é só <em>como a evidência aparece</em>. Mas há um tema de fundo que o plano precisa endereçar com honestidade.
+      </p>
+      <p style="margin-bottom:14px;">
+        O VFP9 é uma tecnologia em fim de vida. Nossos devs mais experientes no legado são extremamente valiosos hoje, e a senioridade
+        de verdade — julgamento, decomposição, arquitetura — é <strong>portátil</strong>, mesmo que a sintaxe não seja. Por isso o
+        crescimento deles passa por cross-training em JS (já estão pegando pequenas coisas para "pegar a manha") e, principalmente, por
+        <strong>liderar a estratégia de saída do VFP</strong>, que é trabalho de classe Especialista/Master.
+      </p>
+      <p style="margin-bottom:14px;">
+        A sequência planejada é coerente e vale deixar explícita: os <strong>juniores se aprofundam</strong> para segurar o legado em
+        produção → isso <strong>libera os especialistas</strong> do trabalho de orientar o tempo todo → os especialistas ganham tempo
+        para <strong>planejar e liderar a migração</strong>. "Aprofundar no legado" e "liderar a saída do legado" não competem — são fases.
+      </p>
+      <div class="callout-ok callout">
+        <strong>A migração é a rampa de crescimento do JS.</strong> Como o produto JS é menor e gera poucas demandas genuinamente
+        complexas, a arquitetura da saída do VFP é o que <em>fabrica</em> os problemas de classe Sênior+ que hoje faltam para os Plenos
+        do JS subirem. É o motor que preenche os degraus de cima.
+      </div>
+    </section>
+
+    <!-- O QUE MUDOU -->
+    <section class="section" id="mudou">
+      <h2>O que mudou nesta versão</h2>
+      <p class="lead">Resumo das mudanças em relação à versão anterior da escada, para alinhamento com o time.</p>
+      <div class="axes" style="gap:0;">
+        <div class="subrow"><div class="sname" style="color:var(--ct-error-100)">Saiu</div><div><b>Story Point por nível</b> como meta/critério. Virou ruído na era da IA e incentivava inflar entregas — algo que o próprio Guia de Métricas da Certtus já rejeitava.</div></div>
+        <div class="subrow"><div class="sname" style="color:var(--ct-error-100)">Saiu</div><div><b>% de retrabalho como trava de nível.</b> Continua existindo como sinal de saúde/coaching lido em contexto, mas não decide promoção.</div></div>
+        <div class="subrow"><div class="sname" style="color:var(--ct-success-100)">Entrou</div><div><b>Os 3 eixos explícitos</b> (ambiguidade, escopo &amp; risco, direção), extraídos da coluna "Capacidade" que já existia.</div></div>
+        <div class="subrow"><div class="sname" style="color:var(--ct-success-100)">Entrou</div><div><b>Classe de problema + demanda-âncora real</b> por nível, para tornar a conversa de carreira concreta.</div></div>
+        <div class="subrow"><div class="sname" style="color:var(--ct-success-100)">Entrou</div><div><b>Promoção por stretch assignment</b> e demonstração consistente — resolve como subir mesmo nos degraus hoje vazios.</div></div>
+        <div class="subrow"><div class="sname" style="color:var(--ct-primary-400)">Manteve</div><div>A <b>espinha comportamental</b> (já era ótima), os <b>subníveis</b> para distribuir salário e os <b>códigos CBO</b> como camada formal de RH.</div></div>
+      </div>
+    </section>
+
+    <!-- REFERÊNCIAS -->
+    <section class="section" id="refs">
+      <h2>Referências</h2>
+      <p class="lead">Frameworks abertos de mercado que embasam este plano. Todos são públicos e adaptáveis.</p>
+      <ul class="ref-list" style="list-style:disc;padding-left:20px;">
+        <li><a href="https://github.com/jorgef/engineeringladders" target="_blank" rel="noopener">Engineering Ladders</a> (jorgef, open source) — escada baseada em eixos e em conversas de carreira; reforça que o framework é guia, não checklist, e que se espera desempenho consistente no próximo nível por alguns meses antes de formalizar.</li>
+        <li><a href="https://progression.fyi" target="_blank" rel="noopener">progression.fyi</a> — agregador de dezenas de escadas de carreira públicas (GitLab, Monzo, Dropbox e outras) para comparação.</li>
+        <li><a href="https://staffeng.com/guides/staff-archetypes/" target="_blank" rel="noopener">Staff Engineer</a> (Will Larson) — arquétipos de liderança técnica sem gestão (Tech Lead, Architect, Solver), base para as faixas Especialista e Master.</li>
+        <li><a href="https://getdx.com/research/measuring-developer-productivity-with-the-dx-core-4/" target="_blank" rel="noopener">DX Core 4</a> e <a href="https://dora.dev" target="_blank" rel="noopener">DORA</a> — frameworks de medição de produtividade de engenharia (ver o Guia de Métricas para detalhes).</li>
+        <li><em>The Manager's Path</em>, de Camille Fournier — referência sobre como escrever escadas de carreira (cap. 9).</li>
+      </ul>
+      <div style="margin-top:24px;border-top:1px solid var(--ct-neutral-200);padding-top:16px;font-size:12px;color:var(--ct-neutral-300);">
+        Certtus · Plano de Carreira de Engenharia · versão de trabalho · documento vivo, a ser revisado com o time.
+      </div>
+    </section>
+
+  </div>
+</main>
+
+</body>
+</html>
