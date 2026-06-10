@@ -1,0 +1,56 @@
+{
+  "_doc": "Mapeamento Projeto Jira -> Repositório(s) GitHub da org CERTTUS. Usado no Passo 2 (busca de implementações similares no código) e no Passo 8b (registrar repos_analisados na âncora). Atualizar conforme novos repos/projetos forem descobertos durante as classificações.",
+  "org": "CERTTUS",
+  "repo_sincronizacao": "GustavoKlehm-Certtus/calibracao",
+  "projetos": {
+    "BACK": {
+      "nome": "BackOffice / ERP",
+      "repos": ["CERTTUS/Certtus-Plus"],
+      "obs": "Projeto BACK e URG no Jira correspondem ao ERP Certtus Plus. Base em Visual Basic .NET + VFP9 (Visual FoxPro). Repos de apoio VFP: CERTTUS/visual-foxpro-compiler, CERTTUS/foxbin2prg, CERTTUS/vscode-foxpro, CERTTUS/VFP9SP2Hotfix3."
+    },
+    "URG": {
+      "nome": "Urgências / ERP (mesmo repo do BACK)",
+      "repos": ["CERTTUS/Certtus-Plus"],
+      "obs": "Mesmo repositório do projeto BACK (ERP Certtus Plus)."
+    },
+    "TALK": {
+      "nome": "Talk (mensageria/WhatsApp)",
+      "repos": ["CERTTUS/talk-api", "CERTTUS/talk-web", "CERTTUS/talk", "CERTTUS/whatsapp-webhook", "CERTTUS/whatsapp-api-nodejs-fork-origin"],
+      "obs": "Backend principal: talk-api (TypeScript). Front: talk-web. Integrações WhatsApp: whatsapp-webhook."
+    },
+    "TOUCH": {
+      "nome": "Touch (app mobile)",
+      "repos": ["CERTTUS/app-certtus", "CERTTUS/api-mobile"],
+      "obs": "App mobile (app-certtus) + backend mobile (api-mobile). Testes: CERTTUS/teste-automatizado-Touch."
+    },
+    "IN": {
+      "nome": "Inovação (multi-repo)",
+      "repos": [
+        "CERTTUS/Central-de-Relacionamento",
+        "CERTTUS/mural-web",
+        "CERTTUS/mural-api",
+        "CERTTUS/CERTTUS-BI",
+        "CERTTUS/dashboard-certtus",
+        "CERTTUS/front-dashboard",
+        "CERTTUS/api-dashboard",
+        "CERTTUS/gestao5.0"
+      ],
+      "obs": "Projeto de inovação — toca vários repos. Identificar o repo pelo domínio da demanda: Central de Relacionamento (conteúdos/cursos/universidade), Mural (mural-web/mural-api), BI (CERTTUS-BI), Dashboards (dashboard-certtus/front-dashboard/api-dashboard), Método/Gestão 5.0 (gestao5.0)."
+    },
+    "NUV": {
+      "nome": "Nuvem / plataforma web",
+      "repos": ["CERTTUS/Certtusweb", "CERTTUS/GraphQL-API", "CERTTUS/api-microservicos"],
+      "obs": "Confirmar repo exato durante a primeira classificação NUV. Candidatos a refinar."
+    },
+    "BI": {
+      "nome": "Business Intelligence",
+      "repos": ["CERTTUS/CERTTUS-BI"],
+      "obs": "BI Certtus + Método Certtus 5.0 residem no mesmo projeto/repo."
+    }
+  },
+  "repos_apoio": {
+    "design-system": "CERTTUS/design-system",
+    "graphql": ["CERTTUS/GraphQL-API", "CERTTUS/front-graphql", "CERTTUS/graphql-token-explorer"],
+    "ia_automacao": ["CERTTUS/Cursor", "CERTTUS/discordbot-ai-squad", "CERTTUS/ConsoleCerttusAI", "CERTTUS/docling"]
+  }
+}
